@@ -1,0 +1,10 @@
+// 'bi_postgres' matches the connection name from publisher.config.json
+source: users is bi_postgres.table('public.users') {
+  dimension: account_type is status
+  measure: total_users is count()
+}
+
+run: users -> {
+  group_by: account_type
+  aggregate: total_users
+}
